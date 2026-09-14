@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<div class="home-nav">
+    {% if user.is_authenticated %}
+        <a href="{% url 'user_profile:profile' %}" class="btn btn-primary">Profile</a>
+        <a href="{% url 'account_settings:settings' %}" class="btn btn-primary">Settings</a>
+        <form method="post" action="{% url 'login:logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-accent">Log Out</button>
+        </form>
+    {% else %}
+        <a href="{% url 'login:login' %}" class="btn btn-primary">Log In</a>
+        <a href="{% url 'register:register' %}" class="btn btn-accent">Register</a>
+    {% endif %}
+</div>
+
+<h1>HOME PAGE</h1>
+{% endblock %}

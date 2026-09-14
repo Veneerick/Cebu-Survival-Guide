@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Account Settings</h1>
+        <p class="subtitle">Update your username and email.</p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <p class="auth-footer" style="text-align:left; font-size:0.75rem; margin-top:0.25rem;">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="form-errors">
+                            {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-accent btn-full">Save Changes</button>
+        </form>
+
+        <p class="auth-footer">
+            <a href="{% url 'user_profile:profile' %}">Cancel</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

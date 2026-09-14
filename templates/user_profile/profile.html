@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div style="width:64px; height:64px; border-radius:50%; background:var(--accent, #4a90d9); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:bold; margin:0 auto 1rem;">
+            {{ user.username|first|upper }}
+        </div>
+
+        <h1 style="text-align:center;">{{ user.username }}</h1>
+        <p class="subtitle" style="text-align:center;">{{ user.email }}</p>
+
+        <div class="form-group">
+            <label>Member Since</label>
+            <p>{{ user.date_joined|date:"F j, Y" }}</p>
+        </div>
+
+        <a href="{% url 'account_settings:settings' %}" class="btn btn-accent btn-full">Edit Settings</a>
+
+        <p class="auth-footer">
+            <a href="{% url 'home:home' %}">Back to Home</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Create an Account</h1>
+        <p class="subtitle">Join the Cebu Survival Guide community.</p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <p class="auth-footer" style="text-align:left; font-size:0.75rem; margin-top:0.25rem;">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="form-errors">
+                            {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-accent btn-full">Register</button>
+        </form>
+
+        <p class="auth-footer">
+            Already have an account?
+            <a href="{% url 'login:login' %}">Log in here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
