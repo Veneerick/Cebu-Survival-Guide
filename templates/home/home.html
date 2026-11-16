@@ -6,6 +6,10 @@
 <section class="hero">
     <h1>Your Guide to Getting Around Cebu.</h1>
     <p>Find jeepney routes, transportation information, and essential emergency services in one place.</p>
+    <div class="home-nav" style="margin-bottom:14px;">
+        <a href="{% url 'transportation:transportation' %}" class="btn btn-primary">Explore Transportation</a>
+        <a href="{% url 'services:services' %}" class="btn">Emergency Services</a>
+    </div>
     <div class="home-nav">
         {% if user.is_authenticated %}
             <a href="{% url 'user_profile:profile' %}" class="btn btn-primary">Profile</a>
@@ -22,40 +26,40 @@
 </section>
 
 <div class="grid grid-3">
-    <div class="card">
+    <a class="card" href="{% url 'transportation:transportation' %}">
         <div class="tile blu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="4" y="3" width="16" height="15"/><path d="M4 12h16M7 21v-3M17 21v-3M8 15h.01M16 15h.01"/></svg></div>
         <h3>Transportation</h3>
         <p>Find jeepney routes and transportation information around Cebu.</p>
-    </div>
-    <div class="card">
+    </a>
+    <a class="card" href="{% url 'services:services' %}">
         <div class="tile grn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></div>
         <h3>Essential Services</h3>
         <p>Quickly find important emergency contacts and public services.</p>
-    </div>
-    <div class="card">
+    </a>
+    <a class="card" href="{% url 'tips:tips' %}">
         <div class="tile mag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 21s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12z"/><path d="M11 8h2v2h-2z"/></svg></div>
         <h3>Cebu Guide</h3>
         <p>Access useful information for navigating Cebu safely and efficiently.</p>
-    </div>
+    </a>
 </div>
 
 <h2 class="sec">Quick Access</h2>
 <div class="grid grid-4">
-    <div class="card quick-card">
+    <a class="card quick-card" href="{% url 'transportation:transportation' %}">
         <div class="tile blu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14"/></svg></div>
         <span><b>Jeepney Map</b><small>Routes &amp; stops</small></span>
-    </div>
-    <div class="card quick-card">
+    </a>
+    <a class="card quick-card hover-sos" href="{% url 'services:services' %}#police">
         <div class="tile sos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></div>
         <span><b>Police</b><small>Call 911</small></span>
-    </div>
-    <div class="card quick-card">
+    </a>
+    <a class="card quick-card hover-sos" href="{% url 'services:services' %}#fire">
         <div class="tile sos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3c1 4 5 6 5 11a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 1-10z"/></svg></div>
         <span><b>Fire Department</b><small>Call 911</small></span>
-    </div>
-    <div class="card quick-card">
+    </a>
+    <a class="card quick-card hover-sos" href="{% url 'services:services' %}#medical">
         <div class="tile sos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="3" y="6" width="18" height="12"/><path d="M12 9v6M9 12h6"/></svg></div>
         <span><b>Emergency</b><small>Ambulance &amp; medical</small></span>
-    </div>
+    </a>
 </div>
 {% endblock %}

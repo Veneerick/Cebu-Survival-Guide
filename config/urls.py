@@ -14,4 +14,7 @@ urlpatterns = [
     path('register/', include('apps.register.urls')),      # Register slice
     path('profile/', include('apps.user_profile.urls')),   # Profile slice
     path('settings/', include('apps.account_settings.urls')),       # Settings slice
+    path('transportation/', include('apps.transportation.urls')),  # Transportation slice
+    path('services/', include('apps.services.urls')),              # Essential Services slice
+    path('tips/', include('apps.tips.urls')),                      # Tips slice
 ]
