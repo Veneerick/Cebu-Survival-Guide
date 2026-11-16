@@ -9,29 +9,25 @@
 </head>
 <body>
 
-    <header class="topbar">
-        <div class="topbar-left">
-            <a href="{% url 'home:home' %}" style="display:flex; align-items:center; gap:0.75rem;">
-                <span class="logo-placeholder">Logo<br>Here</span>
-                <span class="brand-name">Cebu Survival Guide</span>
-            </a>
-        </div>
+    <header class="topbar-wrap">
+        <div class="topbar">
+            <a href="{% url 'home:home' %}" class="brand">Cebu <span class="hl">Survival Guide</span></a>
 
-        <div class="topbar-right">
-            {% if user.is_authenticated %}
-                <a href="{% url 'user_profile:profile' %}" class="topbar-greeting" style="text-decoration:none;">
-                    Hi, {{ user.username }}
-                </a>
-                <a href="{% url 'account_settings:settings' %}" class="btn btn-outline">Settings</a>
-                <form action="{% url 'login:logout' %}" method="post" style="margin:0;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline">Logout</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login:login' %}" class="btn btn-outline">Login</a>
-                <a href="{% url 'register:register' %}" class="btn btn-accent">Register</a>
-            {% endif %}
+            <div class="topbar-right">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'user_profile:profile' %}" class="topbar-greeting">Hi, {{ user.username }}</a>
+                    <a href="{% url 'account_settings:settings' %}" class="btn btn-outline">Settings</a>
+                    <form action="{% url 'login:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login:login' %}" class="btn btn-outline">Login</a>
+                    <a href="{% url 'register:register' %}" class="btn btn-accent">Register</a>
+                {% endif %}
+            </div>
         </div>
+        <div class="palette-stripe"></div>
     </header>
 
     {% if messages %}
@@ -45,6 +41,11 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+
+    <footer class="site-footer">
+        <div class="footer-links"><a href="{% url 'home:home' %}">Home</a></div>
+        Cebu Survival Guide · Everything you need to navigate Cebu and find essential services in one place.
+    </footer>
 
 </body>
 </html>
