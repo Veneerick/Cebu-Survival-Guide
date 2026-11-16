@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<div class="card not-found">
+    <p class="code">404</p>
+    <h1 class="page-title" style="font-size:1.6rem;">Page not found</h1>
+    <p style="margin-top:8px;">That page doesn't exist. Try one of these instead.</p>
+    <div class="home-nav" style="justify-content:center; margin-top:20px;">
+        <a class="btn btn-primary" href="{% url 'home:home' %}">Home</a>
+        <a class="btn" href="{% url 'transportation:transportation' %}">Transportation</a>
+        <a class="btn btn-red" href="{% url 'services:services' %}">Essential Services</a>
+    </div>
+</div>
+{% endblock %}

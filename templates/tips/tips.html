@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Survival Tips - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Survival Tips</h1>
+<p class="page-lead">Short, practical advice for getting around Cebu.</p>
+
+<div class="chips" role="group" aria-label="Filter tips" style="margin-top:24px;">
+    {% for c in categories %}
+        <a href="?category={{ c }}" class="chip {% if c == current %}active{% endif %}" {% if c == current %}aria-current="true"{% endif %}>{{ c }}</a>
+    {% endfor %}
+</div>
+
+<div class="grid grid-3" style="margin-top:24px;">
+    {% for t in tips %}
+        <article class="card">
+            <span class="badge badge-{{ t.badge }}">{{ t.category }}</span>
+            <h3>{{ t.title }}</h3>
+            <p>{{ t.body }}</p>
+        </article>
+    {% endfor %}
+</div>
+{% endblock %}

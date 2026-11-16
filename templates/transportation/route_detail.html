@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Route {{ route.code }} - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<a class="btn" href="{% url 'transportation:transportation' %}?route={{ route.code }}" style="margin-bottom:24px;">&larr; Back to map</a>
+
+<h1 class="page-title">Route {{ route.code }}</h1>
+<p class="page-lead">{{ route.start }} to {{ route.end }} via {{ route.via }}</p>
+
+<div class="map-layout">
+    <ol class="card stop-list">
+        {% for s in stops %}
+            <li>
+                <span class="stop-num" style="background:{{ route.color }}">{{ s.n }}</span>
+                <span class="stop-name">{{ s.name }}</span>
+                {% if s.first %}<span class="badge badge-grn" style="margin-left:auto;">START</span>{% endif %}
+                {% if s.last %}<span class="badge badge-amb" style="margin-left:auto;">END</span>{% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+
+    <aside class="card" style="align-self:start;">
+        <h2 style="font-size:1.25rem; font-weight:800;">Trip summary</h2>
+        <dl class="info-list">
+            <dt>Stops</dt><dd>{{ stops|length }}</dd>
+            <dt>Status</dt><dd>Running today</dd>
+        </dl>
+        <p style="font-size:0.875rem;">Stops shown are sample data. Confirm with the driver before boarding.</p>
+    </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Essential Services - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Essential Services</h1>
+<p class="page-lead">Important emergency contacts and services in Cebu.</p>
+
+<div class="grid grid-2" style="margin-top:24px;">
+    {% for s in emergency %}
+        <div class="card sos-card" id="{{ s.id }}">
+            <div class="tile sos">{% include "includes/icon.html" with name=s.icon %}</div>
+            <h3>{{ s.name }}</h3>
+            <div class="big-number">{{ s.number }}</div>
+            <p>{{ s.description }}</p>
+            <a class="btn btn-red btn-full" href="tel:{{ s.number }}">{% include "includes/icon.html" with name="phone" %} Call Now</a>
+            <button type="button" class="btn btn-full">Copy number</button>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="notice"><b>Tip:</b> 911 is the national emergency hotline. Please confirm local numbers with official sources before relying on them.</div>
+
+<h2 class="sec">Non-emergency services</h2>
+<div class="grid grid-2">
+    {% for o in other %}
+        <div class="card quick-card">
+            <div class="tile">{% include "includes/icon.html" with name=o.icon %}</div>
+            <span><b>{{ o.name }}</b><small>{{ o.description }}</small></span>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

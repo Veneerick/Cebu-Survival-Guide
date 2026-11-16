@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Transportation - Cebu Survival Guide{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Jeepney Routes &amp; Transportation</h1>
+<p class="page-lead">Find jeepney routes and transportation information around Cebu.</p>
+
+<form method="get" class="searchbar" role="search">
+    {% include "includes/icon.html" with name="search" %}
+    <input type="text" name="q" value="{{ query }}" placeholder="Search for a location or route (e.g. Colon, IT Park, Ayala)" aria-label="Search">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<div class="chips">
+    {% for r in routes %}
+        <a href="?route={{ r.code }}{% if query %}&q={{ query|urlencode }}{% endif %}" class="chip {% if selected and r.code == selected.code %}active{% endif %}">
+            <i style="background:{{ r.color }}"></i>{{ r.code }} · {{ r.start }}–{{ r.end }}
+        </a>
+    {% empty %}
+        <p class="page-lead" style="margin:0;">No routes match "{{ query }}".</p>
+    {% endfor %}
+</div>
+
+<div class="map-layout">
+    <div class="map-box">
+        <div class="map-controls">
+            <button type="button" class="map-btn" aria-label="Zoom in">+</button>
+            <button type="button" class="map-btn" aria-label="Zoom out">−</button>
+            <button type="button" class="map-btn" aria-label="Locate me">GPS</button>
+        </div>
+        <svg viewBox="0 0 700 460" role="img" aria-label="Simplified map of Cebu City jeepney routes">
+            <path d="M0 380 Q140 350 260 400 T520 430 T700 400 V460 H0Z" fill="#1c90f7" opacity="0.35"/>
+            <path d="M40 60H660M40 160H660M40 260H660M120 20V440M300 20V440M480 20V440" fill="none" stroke="#111" stroke-opacity="0.15" stroke-width="2"/>
+            {% for r in all_routes %}
+                <a href="?route={{ r.code }}">
+                    <path d="{{ r.path }}" fill="none" stroke="#111" stroke-width="11" stroke-linecap="square"/>
+                    <path d="{{ r.path }}" fill="none" stroke="{{ r.color }}" stroke-width="{% if selected and r.code == selected.code %}8{% else %}6{% endif %}" stroke-linecap="square"/>
+                </a>
+            {% endfor %}
+            {% for l in landmarks %}
+                <rect x="{{ l.x|add:'-7' }}" y="{{ l.y|add:'-7' }}" width="14" height="14" fill="#f9e901" stroke="#111" stroke-width="3"/>
+                <text x="{{ l.x|add:'12' }}" y="{{ l.y|add:'4' }}" fill="#111" stroke="#f4f0d8" stroke-width="4" paint-order="stroke" font-size="13" font-weight="800">{{ l.name }}</text>
+            {% endfor %}
+        </svg>
+    </div>
+
+    <aside class="card">
+        {% if selected %}
+            <div class="badge badge-grn">Running today</div>
+            <h3 style="margin-top:8px;">Route Information</h3>
+            <dl class="info-list">
+                <dt>Route</dt><dd>{{ selected.code }}</dd>
+                <dt>From</dt><dd>{{ selected.start }}</dd>
+                <dt>To</dt><dd>{{ selected.end }}</dd>
+                <dt>Via</dt><dd>{{ selected.via }}</dd>
+            </dl>
+            <a href="{% url 'transportation:route' selected.code %}" class="btn btn-primary btn-full">View Route</a>
+        {% else %}
+            <p>Select a route on the map to see details.</p>
+        {% endif %}
+    </aside>
+</div>
+
+<h2 class="sec">Ways to get around</h2>
+<div class="grid grid-4">
+    {% for t in transport_types %}
+        <div class="card" style="text-align:center;">
+            <div class="tile {{ t.tile }}" style="margin:0 auto;">{% include "includes/icon.html" with name=t.icon %}</div>
+            <h3>{{ t.name }}</h3>
+            <p>{{ t.description }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
